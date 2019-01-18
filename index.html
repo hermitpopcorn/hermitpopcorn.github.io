@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf8">
+  <meta name="theme-color" content="#34147F">
+  <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
+  <title>hermitpopcorn.github.io</title>
+  <style>
+  html {
+    overflow-y: auto;
+  }
+  video#background {
+    position: fixed;
+    right: 0; bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: unset;
+  }
+  div#video-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+  }
+  .container {
+    color: #ddd;
+  }
+  #title {
+    font-family: 'Audiowide';
+    font-size: 9vw;
+  }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop id="background">
+    <source src="space.mp4" type="video/mp4">
+  </video>
+  <div id="video-overlay">&nbsp;</div>
+  <section class="bd-index-fullscreen hero is-fullheight is-light">
+    <div class="hero-body">
+      <div class="container">
+        <span id="title">Wew</span>
+        <div class="links">
+          <a href="adoptionfriend/index.html">&gt; Adoption Friend</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

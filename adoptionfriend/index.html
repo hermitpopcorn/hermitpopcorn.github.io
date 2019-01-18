@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <title>Adoption Friend</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="text-center">
+      <h1>Adoption Friend</h1>
+      <h5>Sebuah Alternatif dari <a href="https://github.com/dayatura/TemanSeangkatan">Teman Angkatan</a></h5>
+    </div>
+
+    <form id='input'>
+      <div class="text-center mt-5">
+        <div class="row">
+          <div class="col-md-10">
+            <input type="text" class="form-control mb-2" placeholder="Masukkan NPM" id="npm">
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-primary btn-block mb-2">Go</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div id="result-container" class="text-center">
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://unpkg.com/popper.js@1.14.6/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/tooltip.js@1.3.1/dist/umd/tooltip.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script>
+    $(function() {
+      $('#result-container').on('click', 'img.foto-teman', function (e) {
+        window.open($(e.target).prop('src'), '_blank');
+      });
+
+      $('form#input').submit(function (e) {
+        e.preventDefault();
+        $('#result-container').html('');
+
+        var npm = $('input#npm').val();
+        var npm_depan = npm.substr(0, 9);
+        while(npm_depan.length < 9) {
+          npm_depan += "0";
+        }
+
+        var jurusan = npm.substr(0, 6);
+        var tahun = '20' + npm.substr(6, 2);
+
+        fetchImage(npm_depan, jurusan, tahun, 1);
+      });
+
+      function fetchImage(npm_depan, jurusan, tahun, id) {
+        return new Promise(function (fulfill, reject) {
+          var id_str = "" + id;
+          npm_belakang = "000".substring(id_str.length) + id_str;
+
+          url = 'https://media.unpad.ac.id/photo/mahasiswa/' + jurusan + '/' + tahun + '/' + npm_depan + npm_belakang + '.JPG';
+
+          $('#result-container').append('<img src="'+url+'" class="foto-teman" rel="noreferrer" id="teman-' + id + '" title="' + npm_depan + npm_belakang + '">');
+          $('img#teman-' + id)
+          .on('load', function () {
+            $('img#teman-' + id).tooltip();
+            fulfill(id);
+          })
+          .on('error', function () {
+            $('img#teman-' + id).remove();
+            reject(id);
+          });
+        })
+        .then(function (id) {
+          if (id < 150) {
+            fetchImage(npm_depan, jurusan, tahun, id + 1);
+          }
+        }).catch(function (err) {
+          if (id < 150) {
+            fetchImage(npm_depan, jurusan, tahun, id + 1);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
