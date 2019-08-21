@@ -98,6 +98,7 @@
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
     <script>
     $(document).ready(function () {
+        var typing = false;
         $.ajax({
             url: "https://ajaxhttpheaders.appspot.com",
             dataType: 'jsonp',
@@ -140,7 +141,13 @@
                 })
 
                 $('a#bio').click(function () {
-                    new Typed("#title", {
+                    if (typing == true) {
+                        return false;
+                    }
+
+                    typing = true;
+
+                    typer = new Typed("#title", {
                         strings: ["WADIDAW", i18n['bio-name'], i18n['bio-occupation'], i18n['bio-skills'], i18n['bio-end'], "WADIDAW"],
                         typeSpeed: 50,
                         backSpeed: 10,
@@ -148,6 +155,7 @@
                         smartBackspace: false,
                         onComplete: function () {
                             $('span.typed-cursor').hide();
+                            typing = false;
                         }
                     });
                 });
