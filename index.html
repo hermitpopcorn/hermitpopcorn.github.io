@@ -1,56 +1,158 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf8">
-  <meta name="theme-color" content="#34147F">
-  <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
-  <title>hermitpopcorn.github.io</title>
-  <style>
-  html {
-    overflow-y: auto;
-  }
-  video#background {
-    position: fixed;
-    right: 0; bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    max-width: unset;
-  }
-  div#video-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.3);
-  }
-  .container {
-    color: #ddd;
-  }
-  #title {
-    font-family: 'Audiowide';
-    font-size: 9vw;
-  }
-  .links a {
-      display: block;
-  }
-  </style>
+    <meta charset="utf8">
+    <meta name="theme-color" content="#34147F">
+    <link href="https://fonts.googleapis.com/css?family=Palanquin+Dark&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
+    <title>hermitpopcorn.github.io</title>
+    <style>
+    html {
+        overflow-y: auto;
+    }
+    video#background {
+        position: fixed;
+        left: 0; top: 0;
+        min-width: 100%;
+        min-height: 100%;
+        max-width: unset;
+    }
+    div#video-overlay {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.45);
+    }
+    .container {
+        color: #ddd;
+    }
+    body {
+        font-size: 5vw;
+    }
+    #title {
+        font-family: 'Palanquin Dark';
+        font-size: 12vw;
+    }
+    span.typed-cursor {
+        font-size: 12vw;
+    }
+    .links li {
+        list-style: none;
+        margin-bottom: 1vh;
+    }
+    .links li a {
+        padding-left: 5vw;
+        padding-right: 5vw;
+    }
+    p.info {
+        font-size: 50%;
+        padding-left: 10vw;
+    }
+    @media only screen and (min-width: 1280px) {
+        body {
+            font-size: 2vw;
+        }
+        #title {
+            font-size: 8vw;
+        }
+        span.typed-cursor {
+            font-size: 8vw;
+        }
+        .links li a {
+            padding-left: 2vw;
+            padding-right: 2vw;
+        }
+        p.info {
+            padding-left: 4vw;
+        }
+    }
+    </style>
 </head>
 <body>
-  <video autoplay muted loop id="background">
-    <source src="space.mp4" type="video/mp4">
-  </video>
-  <div id="video-overlay">&nbsp;</div>
-  <section class="bd-index-fullscreen hero is-fullheight is-light">
-    <div class="hero-body">
-      <div class="container">
-        <span id="title">Wew</span>
-        <div class="links">
-          <a href="blog/">&gt; Blog</a>
-          <a href="adoptionfriend/">&gt; Adoption Friend</a>
-        </div>
-      </div>
-    </div>
-  </section>
-</body>
+    <video autoplay muted loop id="background">
+        <source src="space.mp4" type="video/mp4">
+        </video>
+        <div id="video-overlay">&nbsp;</div>
+        <section class="bd-index-fullscreen hero is-fullheight is-light">
+            <div class="hero-body">
+                <div class="container">
+                    <span id="title">WADIDAW</span>
+                    <div class="links">
+                        <li>
+                            <a href="javascript:;" id="bio">&gt; Me</a>
+                        </li>
+                        <li>
+                            <a href="blog/">&gt; Blog</a>
+                        </li>
+                        <li>
+                            <a href="adoptionfriend/">&gt; Adoption Friend</a>
+                            <p class="info"><span class="i18n" data-string="adoption-friend-info"></span></p>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
+    <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://ajaxhttpheaders.appspot.com",
+            dataType: 'jsonp',
+            success: function(headers) {
+                var lang = headers['Accept-Language'];
+                lang = lang.split(',')[0];
+                lang = lang.split('-')[0];
+                if (!lang) {
+                    lang = (window.navigator.userLanguage || window.navigator.language);
+                }
+                if (lang == "ja") {
+                    i18n = {
+                        'bio-name': "Dani・Nと申します。",
+                        'bio-occupation': "日本語科大学生です。",
+                        'bio-skills': "HTMLとPHPをちょっぴり知っています。",
+                        'bio-end': "以上です。",
+                        'adoption-friend-info': "UNPADの学生証写真を（不法に）調べるツール。"
+                    };
+                } else
+                if (lang == "id") {
+                    i18n = {
+                        'bio-name': "Aku Dani N.",
+                        'bio-occupation': "Mahasiswa Sastra Jepang.",
+                        'bio-skills': "Bisa HTML &amp; PHP tapi gak jago-jago amat.",
+                        'bio-end': "Sudah, itu saja.",
+                        'adoption-friend-info': "Alat ngepo wajah barudak UNPAD."
+                    };
+                } else {
+                    i18n = {
+                        'bio-name': "I'm Dani N.",
+                        'bio-occupation': "Majoring in Japanese Literature.",
+                        'bio-skills': "I know HTML &amp; PHP but I suck at it.",
+                        'bio-end': "That's all.",
+                        'adoption-friend-info': "Alat ngepo wajah barudak UNPAD."
+                    };
+                }
+
+                $('span.i18n').each(function (k, i) {
+                    $(i).text(i18n[$(i).data('string')]);
+                })
+
+                $('a#bio').click(function () {
+                    new Typed("#title", {
+                        strings: ["WADIDAW", i18n['bio-name'], i18n['bio-occupation'], i18n['bio-skills'], i18n['bio-end'], "WADIDAW"],
+                        typeSpeed: 50,
+                        backSpeed: 10,
+                        backDelay: 2000,
+                        smartBackspace: false,
+                        onComplete: function () {
+                            $('span.typed-cursor').hide();
+                        }
+                    });
+                });
+            }
+        });
+    });
+    </script>
 </html>
