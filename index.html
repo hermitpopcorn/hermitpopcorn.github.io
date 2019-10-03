@@ -101,66 +101,74 @@
         var typing = false;
         $.ajax({
             url: "https://ajaxhttpheaders.appspot.com",
-            dataType: 'jsonp',
-            success: function(headers) {
-                var lang = headers['Accept-Language'];
-                lang = lang.split(',')[0];
-                lang = lang.split('-')[0];
-                if (!lang) {
-                    lang = (window.navigator.userLanguage || window.navigator.language);
-                }
-                if (lang == "ja") {
-                    i18n = {
-                        'bio-name': "Dani・Nと申します。",
-                        'bio-occupation': "日本語科大学生です。",
-                        'bio-skills': "HTMLとPHPをちょっぴり知っています。",
-                        'bio-end': "以上です。",
-                        'adoption-friend-info': "UNPADの学生証写真を（不法に）調べるツール。"
-                    };
-                } else
-                if (lang == "id") {
-                    i18n = {
-                        'bio-name': "Aku Dani N.",
-                        'bio-occupation': "Mahasiswa Sastra Jepang.",
-                        'bio-skills': "Bisa HTML &amp; PHP tapi gak jago-jago amat.",
-                        'bio-end': "Sudah, itu saja.",
-                        'adoption-friend-info': "Alat ngepo wajah barudak UNPAD."
-                    };
-                } else {
-                    i18n = {
-                        'bio-name': "I'm Dani N.",
-                        'bio-occupation': "Majoring in Japanese Literature.",
-                        'bio-skills': "I know HTML &amp; PHP but I suck at it.",
-                        'bio-end': "That's all.",
-                        'adoption-friend-info': "Alat ngepo wajah barudak UNPAD."
-                    };
-                }
-
-                $('span.i18n').each(function (k, i) {
-                    $(i).text(i18n[$(i).data('string')]);
-                })
-
-                $('a#bio').click(function () {
-                    if (typing == true) {
-                        return false;
-                    }
-
-                    typing = true;
-
-                    typer = new Typed("#title", {
-                        strings: ["WADIDAW", i18n['bio-name'], i18n['bio-occupation'], i18n['bio-skills'], i18n['bio-end'], "WADIDAW"],
-                        typeSpeed: 50,
-                        backSpeed: 10,
-                        backDelay: 2000,
-                        smartBackspace: false,
-                        onComplete: function () {
-                            $('span.typed-cursor').hide();
-                            typing = false;
-                        }
-                    });
-                });
+            dataType: 'jsonp'
+        }).done(function (headers) {
+            var lang = headers['Accept-Language'];
+            lang = lang.split(',')[0];
+            lang = lang.split('-')[0];
+            if (!lang) {
+                lang = (window.navigator.userLanguage || window.navigator.language);
             }
+
+            initScripts(lang);
+        }).fail(function () {
+            setTimeout(function () {
+                initScripts('en');
+            }, 1000);
         });
+
+        function initScripts(lang) {
+            if (lang == "ja") {
+                i18n = {
+                    'bio-name': "Dani・Nと申します。",
+                    'bio-occupation': "日本語科大学生です。",
+                    'bio-skills': "HTMLとPHPをちょっぴり知っています。",
+                    'bio-end': "以上です。",
+                    'adoption-friend-info': "UNPADの学生証写真を（不法に）調べるツール。"
+                };
+            } else
+            if (lang == "id") {
+                i18n = {
+                    'bio-name': "Aku Dani N.",
+                    'bio-occupation': "Mahasiswa Sastra Jepang.",
+                    'bio-skills': "Bisa HTML &amp; PHP tapi gak jago-jago amat.",
+                    'bio-end': "Sudah, itu saja.",
+                    'adoption-friend-info': "Alat ngepo wajah barudak UNPAD."
+                };
+            } else {
+                i18n = {
+                    'bio-name': "I'm Dani N.",
+                    'bio-occupation': "Majoring in Japanese Literature.",
+                    'bio-skills': "I know HTML &amp; PHP but I suck at it.",
+                    'bio-end': "That's all.",
+                    'adoption-friend-info': "See the horrendous faces on your UNPAD friends' student ID photos."
+                };
+            }
+
+            $('span.i18n').each(function (k, i) {
+                $(i).text(i18n[$(i).data('string')]);
+            })
+
+            $('a#bio').click(function () {
+                if (typing == true) {
+                    return false;
+                }
+
+                typing = true;
+
+                typer = new Typed("#title", {
+                    strings: ["WADIDAW", i18n['bio-name'], i18n['bio-occupation'], i18n['bio-skills'], i18n['bio-end'], "WADIDAW"],
+                    typeSpeed: 50,
+                    backSpeed: 10,
+                    backDelay: 2000,
+                    smartBackspace: false,
+                    onComplete: function () {
+                        $('span.typed-cursor').hide();
+                        typing = false;
+                    }
+                });
+            });
+        }
     });
     </script>
 </html>
