@@ -4,6 +4,7 @@
     <meta charset="utf8">
     <meta name="theme-color" content="#34147F">
     <link href="https://fonts.googleapis.com/css?family=Palanquin+Dark&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
     <title>hermitpopcorn.github.io</title>
     <style>
@@ -22,12 +23,13 @@
         top: 0; left: 0; right: 0; bottom: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,0.45);
+        background-color: rgba(0,0,0,0.5);
     }
     .container {
         color: #ddd;
     }
     body {
+        font-family: "Noto Sans JP", sans-serif;
         font-size: 5vw;
     }
     #title {
@@ -36,6 +38,7 @@
     }
     span.typed-cursor {
         font-size: 12vw;
+        line-height: 1;
     }
     .links li {
         list-style: none;
@@ -54,7 +57,7 @@
             font-size: 2vw;
         }
         #title {
-            font-size: 8vw;
+            font-size: 7vw;
         }
         span.typed-cursor {
             font-size: 8vw;
@@ -65,6 +68,10 @@
         }
         p.info {
             padding-left: 4vw;
+        }
+        p.lang-switcher {
+            font-size: 0.8vw;
+            margin-bottom: 0.8vw;
         }
     }
     </style>
@@ -77,17 +84,24 @@
         <section class="bd-index-fullscreen hero is-fullheight is-light">
             <div class="hero-body">
                 <div class="container">
-                    <span id="title">WADIDAW</span>
+                    <p class="lang-switcher"><a id="switch-lang"><span class="i18n" data-string="switch-lang">switch language</span></a></p>
+                    <span id="title">hermitpopcorn</span>
                     <div class="links">
                         <li>
-                            <a href="javascript:;" id="bio">&gt; Me</a>
+                            <a href="javascript:;" id="bio">&gt; <span class="i18n" data-string="me">Me</span></a>
                         </li>
                         <li>
-                            <a href="blog/">&gt; Blog</a>
+                            <a href="blog/">&gt; <span class="i18n" data-string="blog">Blog</span></a>
                         </li>
                         <li>
                             <a href="adoptionfriend/">&gt; Adoption Friend</a>
-                            <p class="info"><span class="i18n" data-string="adoption-friend-info"></span></p>
+                            <p class="info"><span class="i18n" data-string="adoption-friend-info">Find out your UNPAD friends' student ID photo.</span></p>
+                        </li>
+                        <li>
+                            <a href="javascript:;" id="contact">&gt; <span class="i18n" data-string="contact">Contact</span></a>
+                            <p class="info" id="contact-info" style="display: none"><span class="i18n" data-string="contact-info">
+                                Email: dani17005 [at] mail.unpad.ac.id
+                            </span></p>
                         </li>
                     </div>
                 </div>
@@ -99,29 +113,18 @@
     <script>
     $(document).ready(function () {
         var typing = false;
-        $.ajax({
-            url: "https://ajaxhttpheaders.appspot.com",
-            dataType: 'jsonp'
-        }).done(function (headers) {
-            var lang = headers['Accept-Language'];
-            lang = lang.split(',')[0];
-            lang = lang.split('-')[0];
-            if (!lang) {
-                lang = (window.navigator.userLanguage || window.navigator.language);
-            }
-
-            initScripts(lang);
-        }).fail(function () {
-            setTimeout(function () {
-                initScripts('en');
-            }, 1000);
-        });
-
-        function initScripts(lang) {
+        var lang = "";
+        var i18n = {};
+        function setLanguage(lang) {
             if (lang == "ja") {
                 i18n = {
+                    'switch-lang': "言語変更",
+                    'me': "私について",
+                    'blog': "ブログ",
+                    'contact': "連絡先",
+                    'contact-info': "メールアドレス： dani17005 [at] mail.unpad.ac.id",
                     'bio-name': "Dani・Nと申します。",
-                    'bio-occupation': "日本語科大学生です。",
+                    'bio-occupation': "パジャジャラン大学　日本語科の大学生です。",
                     'bio-skills': "HTMLとPHPをちょっぴり知っています。",
                     'bio-end': "以上です。",
                     'adoption-friend-info': "UNPADの学生証写真を（不法に）調べるツール。"
@@ -129,46 +132,77 @@
             } else
             if (lang == "id") {
                 i18n = {
+                    'switch-lang': "ganti bahasa",
+                    'me': "Aku",
+                    'blog': "Blog",
+                    'contact': "Kontak",
+                    'contact-info': "Email: dani17005 [at] mail.unpad.ac.id",
                     'bio-name': "Aku Dani N.",
-                    'bio-occupation': "Mahasiswa Sastra Jepang.",
+                    'bio-occupation': "Mahasiswa Sastra Jepang Universitas Padjadjaran.",
                     'bio-skills': "Bisa HTML &amp; PHP tapi gak jago-jago amat.",
                     'bio-end': "Sudah, itu saja.",
                     'adoption-friend-info': "Alat ngepo wajah barudak UNPAD."
                 };
             } else {
                 i18n = {
+                    'switch-lang': "switch language",
+                    'me': "Me",
+                    'blog': "Blog",
+                    'contact': "Contact",
+                    'contact-info': "Email: dani17005 [at] mail.unpad.ac.id",
                     'bio-name': "I'm Dani N.",
-                    'bio-occupation': "Majoring in Japanese Literature.",
+                    'bio-occupation': "Japanese Literature student in Padjadjaran University.",
                     'bio-skills': "I know HTML &amp; PHP but I suck at it.",
                     'bio-end': "That's all.",
-                    'adoption-friend-info': "See the horrendous faces on your UNPAD friends' student ID photos."
+                    'adoption-friend-info': "Find out your UNPAD friends' student ID photo."
                 };
             }
 
             $('span.i18n').each(function (k, i) {
-                $(i).text(i18n[$(i).data('string')]);
-            })
-
-            $('a#bio').click(function () {
-                if (typing == true) {
-                    return false;
-                }
-
-                typing = true;
-
-                typer = new Typed("#title", {
-                    strings: ["WADIDAW", i18n['bio-name'], i18n['bio-occupation'], i18n['bio-skills'], i18n['bio-end'], "WADIDAW"],
-                    typeSpeed: 50,
-                    backSpeed: 10,
-                    backDelay: 2000,
-                    smartBackspace: false,
-                    onComplete: function () {
-                        $('span.typed-cursor').hide();
-                        typing = false;
-                    }
-                });
+                $(i).html(i18n[$(i).data('string')]);
             });
         }
+
+        $('a#contact').click(function () {
+            $('#contact-info').toggle(100);
+        });
+
+        $('a#bio').click(function () {
+            if (typing == true) {
+                return false;
+            }
+
+            typing = true;
+
+            title = $("#title").text();
+
+            typer = new Typed("#title", {
+                strings: [title, i18n['bio-name'], i18n['bio-occupation'], i18n['bio-skills'], i18n['bio-end'], title],
+                typeSpeed: 50,
+                backSpeed: 10,
+                cursorChar: '|',
+                backDelay: 2000,
+                smartBackspace: false,
+                onComplete: function () {
+                    $('span.typed-cursor').hide();
+                    typing = false;
+                }
+            });
+        });
+
+        $('a#switch-lang').click(function () {
+            if (lang == "ja") {
+                lang = "id";
+            } else if (lang == "id") {
+                lang = "en";
+            } else if (lang == "en") {
+                lang = "ja";
+            }
+            setLanguage(lang);
+        });
+
+        lang = (window.navigator.userLanguage || window.navigator.language).replace(/\-(.+)/, "");
+        setLanguage(lang);
     });
     </script>
 </html>
