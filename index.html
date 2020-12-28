@@ -5,7 +5,7 @@
     <meta name="theme-color" content="#34147F">
     <link href="https://fonts.googleapis.com/css?family=Palanquin+Dark&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" rel="stylesheet">
     <title>hermitpopcorn.github.io</title>
     <style>
     html {
@@ -32,13 +32,18 @@
         font-family: "Noto Sans JP", sans-serif;
         font-size: 5vw;
     }
+    a {
+        color: inherit;
+    }
+    a:hover, a:active {
+        color: #777;
+    }
     #title {
         font-family: 'Palanquin Dark';
         font-size: 12vw;
     }
     span.typed-cursor {
         font-size: 12vw;
-        line-height: 1;
     }
     .links li {
         list-style: none;
@@ -78,48 +83,54 @@
 </head>
 <body>
     <video autoplay muted loop id="background">
-        <source src="space.mp4" type="video/mp4">
-        </video>
-        <div id="video-overlay">&nbsp;</div>
-        <section class="bd-index-fullscreen hero is-fullheight is-light">
-            <div class="hero-body">
-                <div class="container">
-                    <p class="lang-switcher"><a id="switch-lang"><span class="i18n" data-string="switch-lang">switch language</span></a></p>
-                    <span id="title">hermitpopcorn</span>
-                    <div class="links">
-                        <li>
-                            <a href="javascript:;" id="bio">&gt; <span class="i18n" data-string="me">Me</span></a>
-                        </li>
-                        <li>
-                            <a href="blog/">&gt; <span class="i18n" data-string="blog">Blog</span></a>
-                        </li>
-                        <li>
-                            <a href="adoptionfriend/">&gt; Adoption Friend</a>
-                            <p class="info"><span class="i18n" data-string="adoption-friend-info">Find out your UNPAD friends' student ID photo.</span></p>
-                        </li>
-                        <li>
-                            <a href="javascript:;" id="contact">&gt; <span class="i18n" data-string="contact">Contact</span></a>
-                            <p class="info" id="contact-info" style="display: none"><span class="i18n" data-string="contact-info">
-                                Email: dani17005 [at] mail.unpad.ac.id
-                            </span></p>
-                        </li>
-                    </div>
+        <source src="tunnel.mp4" type="video/mp4">
+    </video>
+    <div id="video-overlay">&nbsp;</div>
+    <section class="bd-index-fullscreen hero is-fullheight is-light">
+        <div class="hero-body">
+            <div class="container">
+                <p class="lang-switcher"><a id="switch-lang"><span class="i18n" data-string="switch-lang">switch language</span></a></p>
+                <span id="title"><span id="typer">hermitpopcorn</span></span>
+                <div class="links">
+                    <li>
+                        <a href="javascript:;" id="bio">&gt; <span class="i18n" data-string="me">Me</span></a>
+                    </li>
+                    <li>
+                        <a href="blog/">&gt; <span class="i18n" data-string="blog">Blog</span></a>
+                    </li>
+                    <li>
+                        <a href="adoptionfriend/">&gt; Adoption Friend</a>
+                        <p class="info"><span class="i18n" data-string="adoption-friend-info">Find out your UNPAD friends' student ID photo.</span></p>
+                    </li>
+                    <li>
+                        <a href="javascript:;" id="contact">&gt; <span class="i18n" data-string="contact">Contact</span></a>
+                        <p class="info" id="contact-info" style="display: none"><span class="i18n" data-string="contact-info">
+                            Email: dani17005 [at] mail.unpad.ac.id
+                        </span></p>
+                    </li>
                 </div>
             </div>
-        </section>
-    </body>
+        </div>
+        <div class="hero-foot">
+            <div class="container">
+                <p class="is-size-7 pb-2">
+                    Video by <a href="https://pixabay.com/users/tunnelmotions-12767861/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=26475">tunnelmotions</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=26475">Pixabay</a>
+                </p>
+            </div>
+        </div>
+    </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
     <script>
     $(document).ready(function () {
-        var typing = false;
+        var typer = null;
         var lang = "";
         var i18n = {};
         function setLanguage(lang) {
             if (lang == "ja") {
                 i18n = {
                     'switch-lang': "言語変更",
-                    'me': "私について",
+                    'me': "自己紹介",
                     'blog': "ブログ",
                     'contact': "連絡先",
                     'contact-info': "メールアドレス： dani17005 [at] mail.unpad.ac.id",
@@ -168,24 +179,29 @@
         });
 
         $('a#bio').click(function () {
-            if (typing == true) {
+            if (typer != null) {
                 return false;
             }
 
-            typing = true;
+            title = "hermitpopcorn";
+            $("#title #typer").html(title);
+            $("#title #typer").css('font-size', 'inherit');
 
-            title = $("#title").text();
-
-            typer = new Typed("#title", {
+            typer = new Typed("#title #typer", {
                 strings: [title, i18n['bio-name'], i18n['bio-occupation'], i18n['bio-skills'], i18n['bio-end'], title],
                 typeSpeed: 50,
                 backSpeed: 10,
-                cursorChar: '|',
+                cursorChar: '_',
                 backDelay: 2000,
                 smartBackspace: false,
                 onComplete: function () {
                     $('span.typed-cursor').hide();
-                    typing = false;
+                    typer = null;
+                },
+                preStringTyped: function(pos, self) {
+                    size = Math.min(Math.max(((13 / self.strings[pos].length) * 100), 70), 130) + '%';
+                    $("#title #typer").css('font-size', size);
+                    $(".typed-cursor").css('font-size', size);
                 }
             });
         });
@@ -199,10 +215,16 @@
                 lang = "ja";
             }
             setLanguage(lang);
+            if (typer != null) {
+                typer.reset(false);
+                typer = null;
+                $("a#bio").click();
+            }
         });
 
         lang = (window.navigator.userLanguage || window.navigator.language).replace(/\-(.+)/, "");
         setLanguage(lang);
     });
     </script>
+</body>
 </html>
