@@ -8,14 +8,30 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" rel="stylesheet">
     <title>hermitpopcorn.github.io</title>
     <style>
+    .sr-only {
+        border: 0 !important;
+        clip: rect(1px, 1px, 1px, 1px) !important;
+        -webkit-clip-path: inset(50%) !important;
+        clip-path: inset(50%) !important;
+        height: 1px !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+        position: absolute !important;
+        width: 1px !important;
+        white-space: nowrap !important;
+    }
+
     html {
         overflow-y: auto;
     }
     video#background {
         position: fixed;
-        left: 0; top: 0;
+        left: -75%; top: -50%;
         min-width: 100%;
+        width: 300%;
         min-height: 100%;
+        height: 200%;
         max-width: unset;
     }
     div#video-overlay {
@@ -74,7 +90,7 @@
         p.info {
             padding-left: 4vw;
         }
-        p.lang-switcher {
+        div.lang-switcher {
             font-size: 0.8vw;
             margin-bottom: 0.8vw;
         }
@@ -89,11 +105,17 @@
     <section class="bd-index-fullscreen hero is-fullheight is-light">
         <div class="hero-body">
             <div class="container">
-                <p class="lang-switcher"><a id="switch-lang"><span class="i18n" data-string="switch-lang">switch language</span></a></p>
-                <span id="title"><span id="typer">hermitpopcorn</span></span>
+                <div class="lang-switcher">
+                    <div aria-live="assertive">
+                        <span id="sr-current-language" class="sr-only"></span>
+                    </div>
+                    <a id="switch-lang" href="javascript:;"><span class="i18n" data-string="switch-lang">switch language</span></a>
+                </div>
+                <h1 id="title" aria-label="Site title: hermitpopcorn"><span id="typer">hermitpopcorn</span></h1>
                 <div class="links">
                     <li>
                         <a href="javascript:;" id="bio">&gt; <span class="i18n" data-string="me">Me</span></a>
+                        <article id="sr-bio" class="sr-only"></article>
                     </li>
                     <li>
                         <a href="blog/">&gt; <span class="i18n" data-string="blog">Blog</span></a>
@@ -104,9 +126,11 @@
                     </li>
                     <li>
                         <a href="javascript:;" id="contact">&gt; <span class="i18n" data-string="contact">Contact</span></a>
-                        <p class="info" id="contact-info" style="display: none"><span class="i18n" data-string="contact-info">
-                            Email: dani17005 [at] mail.unpad.ac.id
-                        </span></p>
+                        <div aria-live="polite">
+                            <p class="info" id="contact-info" style="display: none"><span class="i18n" data-string="contact-info">
+                                Email: dani17005 [at] mail.unpad.ac.id
+                            </span></p>
+                        </div>
                     </li>
                 </div>
             </div>
@@ -126,9 +150,10 @@
         var typer = null;
         var lang = "";
         var i18n = {};
-        function setLanguage(lang) {
+        var setLanguage = function(lang) {
             if (lang == "ja") {
                 i18n = {
+                    'current-language': "日本語に設定されています。",
                     'switch-lang': "言語変更",
                     'me': "自己紹介",
                     'blog': "ブログ",
@@ -143,6 +168,7 @@
             } else
             if (lang == "id") {
                 i18n = {
+                    'current-language': "Halaman ditulis dalam Bahasa Indonesia.",
                     'switch-lang': "ganti bahasa",
                     'me': "Aku",
                     'blog': "Blog",
@@ -156,6 +182,7 @@
                 };
             } else {
                 i18n = {
+                    'current-language': "This page is set to English.",
                     'switch-lang': "switch language",
                     'me': "Me",
                     'blog': "Blog",
@@ -172,7 +199,10 @@
             $('span.i18n').each(function (k, i) {
                 $(i).html(i18n[$(i).data('string')]);
             });
-        }
+
+            $('#sr-current-language').text(i18n['current-language']);
+            $('#sr-bio').html("<p>" + [i18n['bio-name'], i18n['bio-occupation'], i18n['bio-skills'], i18n['bio-end']].join(' ') + "</p>");
+        };
 
         $('a#contact').click(function () {
             $('#contact-info').toggle(100);
