@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf8">
     <meta name="theme-color" content="#34147F">
@@ -101,7 +101,7 @@
         <source src="tunnel.mp4" type="video/mp4">
     </video>
     <div id="video-overlay">&nbsp;</div>
-    <section class="bd-index-fullscreen hero is-fullheight is-light">
+    <main class="bd-index-fullscreen hero is-fullheight is-light">
         <div class="hero-body">
             <div class="container">
                 <div class="lang-switcher">
@@ -111,7 +111,7 @@
                     <a id="switch-lang" href="javascript:;"><span class="i18n" data-string="switch-lang">switch language</span></a>
                 </div>
                 <h1 id="title" aria-label="Site title: hermitpopcorn"><span id="typer">hermitpopcorn</span></h1>
-                <div class="links">
+                <ul class="links">
                     <li>
                         <a href="javascript:;" id="bio">&gt; <span class="i18n" data-string="me">Me</span></a>
                         <article id="sr-bio" class="sr-only"></article>
@@ -135,7 +135,7 @@
                             </span></p>
                         </div>
                     </li>
-                </div>
+                </ul>
             </div>
         </div>
         <div class="hero-foot">
@@ -145,7 +145,7 @@
                 </p>
             </div>
         </div>
-    </section>
+    </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
     <script>
@@ -202,6 +202,7 @@
                 };
             }
 
+            $("html").attr('lang', lang);
             $('span.i18n').each(function (k, i) {
                 $(i).html(i18n[$(i).data('string')]);
             });
