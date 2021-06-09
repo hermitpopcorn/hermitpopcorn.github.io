@@ -28,11 +28,9 @@
     }
     video#background {
         position: fixed;
-        left: -75%; top: -50%;
+        left: 0; top: 0;
         min-width: 100%;
-        width: 300%;
         min-height: 100%;
-        height: 200%;
         max-width: unset;
     }
     div#video-overlay {
@@ -126,6 +124,10 @@
                         <p class="info"><span class="i18n" data-string="adoption-friend-info">Find out your UNPAD friends' student ID photo.</span></p>
                     </li>
                     <li>
+                        <a href="enkakujyugyou/">&gt; enkakujyugyou</a>
+                        <p class="info"><span class="i18n" data-string="enkakujyugyou-info">Turns JSON into a simple table for noting Zoom online class links.</span></p>
+                    </li>
+                    <li>
                         <a href="javascript:;" id="contact">&gt; <span class="i18n" data-string="contact">Contact</span></a>
                         <div aria-live="polite">
                             <p class="info" id="contact-info" style="display: none"><span class="i18n" data-string="contact-info">
@@ -164,7 +166,8 @@
                     'bio-occupation': "パジャジャラン大学　日本語科の大学生です。",
                     'bio-skills': "HTMLとPHPをちょっぴり知っています。",
                     'bio-end': "以上です。",
-                    'adoption-friend-info': "UNPADの学生証写真を（不法に）調べるツール。"
+                    'adoption-friend-info': "UNPADの学生証写真を（不法に）調べるツール。",
+                    'enkakujyugyou-info': "JSONでできたオンライン授業表。"
                 };
             } else
             if (lang == "id") {
@@ -179,7 +182,8 @@
                     'bio-occupation': "Mahasiswa Sastra Jepang Universitas Padjadjaran.",
                     'bio-skills': "Bisa HTML &amp; PHP tapi gak jago-jago amat.",
                     'bio-end': "Sudah, itu saja.",
-                    'adoption-friend-info': "Alat ngepo wajah barudak UNPAD."
+                    'adoption-friend-info': "Alat ngepo wajah barudak UNPAD.",
+                    'enkakujyugyou-info': "Tabel sederhana dari JSON untuk mencatat link Zoom kelas online."
                 };
             } else {
                 i18n = {
@@ -193,7 +197,8 @@
                     'bio-occupation': "Japanese Literature student in Padjadjaran University.",
                     'bio-skills': "I know HTML &amp; PHP but I suck at it.",
                     'bio-end': "That's all.",
-                    'adoption-friend-info': "Find out your UNPAD friends' student ID photo."
+                    'adoption-friend-info': "Find out your UNPAD friends' student ID photo.",
+                    'enkakujyugyou-info': "Turns JSON into a simple table where you can plaster Zoom online class links on."
                 };
             }
 
