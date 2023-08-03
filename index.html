@@ -56,6 +56,8 @@
 	#title {
 		font-family: 'Palanquin Dark', sans-serif;
 		font-size: 12vw;
+		line-height: 6vw;
+		margin-bottom: 6vw;
 	}
 	span.typed-cursor {
 		font-size: 12vw;
@@ -78,6 +80,8 @@
 		}
 		#title {
 			font-size: 7vw;
+			line-height: 3.5vw;
+			margin-bottom: 3.5vw;
 		}
 		span.typed-cursor {
 			font-size: 8vw;
@@ -91,7 +95,6 @@
 		}
 		div.lang-switcher {
 			font-size: 0.8vw;
-			margin-bottom: 0.8vw;
 		}
 	}
 	</style>
@@ -104,13 +107,13 @@
 	<main class="bd-index-fullscreen hero is-fullheight is-light">
 		<div class="hero-body">
 			<div class="container">
+				<h1 id="title" aria-label="Site title: hermitpopcorn"><span id="typer">hermitpopcorn</span></h1>
 				<div class="lang-switcher">
 					<div aria-live="assertive">
 						<span id="sr-current-language" class="sr-only"></span>
 					</div>
 					<a id="switch-lang" href="javascript:;"><span class="i18n" data-string="switch-lang">switch language</span></a>
 				</div>
-				<h1 id="title" aria-label="Site title: hermitpopcorn"><span id="typer">hermitpopcorn</span></h1>
 				<ul class="links">
 					<li>
 						<a href="javascript:;" id="bio">&gt; <span class="i18n" data-string="me">Me</span></a>
